@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="JedalnyListokAPI"
+    targetNamespace="https://site181.webte.fei.stuba.sk/zadanie2/soap_api"
+    xmlns:tns="https://site181.webte.fei.stuba.sk/zadanie2/soap_api"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns="http://schemas.xmlsoap.org/wsdl/">
+   <types>
+      <xsd:schema targetNamespace="https://site181.webte.fei.stuba.sk/zadanie2/soap_api">
+         <xsd:element name="insertRequest">
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="den" type="xsd:string"/>
+                  <xsd:element name="meno" type="xsd:string"/>
+                  <xsd:element name="cena" type="xsd:float"/>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="insertResponse" type="xsd:string"/>
+      </xsd:schema>
+   </types>
+   <message name="insertMessage">
+      <part name="request" element="tns:insertRequest"/>
+   </message>
+   <message name="insertResponse">
+      <part name="result" element="tns:insertResponse"/>
+   </message>
+   <portType name="JedalnyListokAPIPortType">
+      <operation name="insertIntoJedalnyListok">
+         <input message="tns:insertMessage"/>
+         <output message="tns:insertResponse"/>
+      </operation>
+   </portType>
+   <binding name="JedalnyListokAPISoapBinding" type="tns:JedalnyListokAPIPortType">
+      <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+      <operation name="insertIntoJedalnyListok">
+         <soap:operation soapAction="https://site181.webte.fei.stuba.sk/zadanie2/soap_api#insertIntoJedalnyListok"/>
+         <input>
+            <soap:body use="literal"/>
+         </input>
+         <output>
+            <soap:body use="literal"/>
+         </output>
+      </operation>
+   </binding>
+   <service name="JedalnyListokAPIService">
+      <port name="JedalnyListokAPIPort" binding="tns:JedalnyListokAPISoapBinding">
+         <soap:address location="https://site181.webte.fei.stuba.sk/zadanie2/soap"/>
+      </port>
+   </service>
+</definitions>
